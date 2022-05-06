@@ -76,7 +76,11 @@ export async function middleware(
   // will nest under. GAE and GCF generate the parent request logs
   // automatically.
   let emitRequestLog;
-  if (env !== GCPEnv.APP_ENGINE && env !== GCPEnv.CLOUD_FUNCTIONS) {
+  if (
+    env !== GCPEnv.APP_ENGINE &&
+    env !== GCPEnv.CLOUD_FUNCTIONS &&
+    env !== GCPEnv.CLOUD_RUN
+  ) {
     const loggingBunyanReq = new LoggingBunyan(options);
     const requestLogger = bunyan.createLogger({
       name: options.logName!,
